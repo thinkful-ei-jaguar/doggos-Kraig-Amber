@@ -1,11 +1,17 @@
 'use strict';
 
-function getDogImage(numRequest) {  
-  fetch('https://dog.ceo/api/breeds/image/random/3')
-    .then(response => response.json())
-    .then(responseJson => 
-      displayResults(responseJson));
-    
+function getDogImage(numInput) {
+  if (numInput < 3) {
+    fetch("https://dog.ceo/api/breeds/image/random/3")
+      .then(response => response.json())
+      .then(responseJson => console.log(responseJson));
+  } else if (numInput > 50) {
+    return alert("Please choose numbers between 3-50");
+  } else {
+    fetch(`https://dog.ceo/api/breeds/image/random/${numInput}`)
+      .then(response => response.json())
+      .then(responseJson => console.log(responseJson));
+  }
 }
 
 function displayResults(responseJson) {
@@ -19,7 +25,7 @@ function displayResults(responseJson) {
 }
 
 function inputForm() {
-  $('form').submit(event => {
+  $('#dog-num-form').submit(event => {
     event.preventDefault();
     getDogImage();
   });
